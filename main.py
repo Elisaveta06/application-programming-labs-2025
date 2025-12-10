@@ -1,15 +1,12 @@
 import argparse
 import pandas as pd
 
-from data_processor import add_amplitude_column, filter_by_amplitude, sort_by_amplitude
+from data_processor import add_foto_column, filter_by_foto, sort_by_foto
 from utils import get_correct_csv_path
 from visualizer import plot_bild
 
 
 def parser_t() -> tuple[str, str, str, float]:
-    """
-    Позволяет через консоль запускать код с аргументами
-    """
     parser = argparse.ArgumentParser()
     parser.add_argument("source", type=str, help="Путь к CSV файлу")
     parser.add_argument("output_plot", type=str, help="Путь для графика")
@@ -22,16 +19,12 @@ def parser_t() -> tuple[str, str, str, float]:
 def main():
     source, output_plot, output_csv, value = parser_t()
 
-    dff = pd.read_csv(source)
+    df = pd.read_csv(source)
 
-    if "text" in dff.columns:
-        dff.drop("text", axis=1, inplace=True)
+    df = add_foto_column(df)
+    filtered_df = filter_by_foto(df, value)
+    sorted_df = sort_by_foto(filtered_df, ascending=True)
 
-    dff = add_amplitude_column(dff)
-
-    filtered_df = filter_by_amplitude(dff, value)
-
-    sorted_df = sort_by_amplitude(filtered_df, ascending=True)
     plot_bild(sorted_df, output_plot)
 
     output_csv = get_correct_csv_path(output_csv)

@@ -4,13 +4,13 @@ import pandas as pd
 
 def plot_bild(df: pd.DataFrame, output_plot: str) -> None:
     """
-    Выводит график отсортированных данных
+    Выводит график отсортированных данных.
     """
     _, ax = plt.subplots(figsize=(12, 6))
 
     ax.plot(
         df.index,
-        df["widht"],
+        df["width"],
         marker="o",
         linestyle="-",
         linewidth=2,
@@ -23,7 +23,7 @@ def plot_bild(df: pd.DataFrame, output_plot: str) -> None:
     ax.grid(True, alpha=0.3)
 
     ax.set_xticks(df.index)
-    ax.set_yticks(df["widht"].values)
+    ax.set_yticks(df["width"].values)
 
     plt.tight_layout()
     plt.savefig(output_plot, dpi=300, bbox_inches="tight")

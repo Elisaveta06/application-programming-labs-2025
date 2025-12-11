@@ -15,7 +15,7 @@ def add_foto_column(df: pd.DataFrame) -> pd.DataFrame:
             width = img.shape[1]
             df.loc[i, "width"] = width
         except Exception as e:
-            print(f"Ошибка при чтении {path}: {e}")
+            raise Exception(f"Ошибка при чтении {path}: {e}")
 
     return df
 

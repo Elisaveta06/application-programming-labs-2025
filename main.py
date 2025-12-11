@@ -17,19 +17,22 @@ def parser_t() -> tuple[str, str, str, float]:
 
 
 def main():
-    source, output_plot, output_csv, value = parser_t()
+    try:
+        source, output_plot, output_csv, value = parser_t()
 
-    df = pd.read_csv(source)
+        df = pd.read_csv(source)
 
-    df = add_foto_column(df)
-    filtered_df = filter_by_foto(df, value)
-    sorted_df = sort_by_foto(filtered_df, ascending=True)
+        df = add_foto_column(df)
+        filtered_df = filter_by_foto(df, value)
+        sorted_df = sort_by_foto(filtered_df, ascending=True)
 
-    plot_bild(sorted_df, output_plot)
+        plot_bild(sorted_df, output_plot)
 
-    output_csv = get_correct_csv_path(output_csv)
-    sorted_df.to_csv(output_csv, index=False)
-    print(f"CSV сохранён в {output_csv}")
+        output_csv = get_correct_csv_path(output_csv)
+        sorted_df.to_csv(output_csv, index=False)
+        print(f"CSV сохранён в {output_csv}")
+    except Exception as ex:
+        print(ex)
 
 
 if __name__ == "__main__":

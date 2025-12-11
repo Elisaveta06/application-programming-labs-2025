@@ -56,7 +56,10 @@ class DatasetViewer(QMainWindow):
             self.display_image(self.current_file)
             self.btn_next_image.setEnabled(True)
         except StopIteration:
+            self.image_display.setPixmap(QPixmap()) 
+            self.image_display.setText("Изображение отсутствует.") 
             self.btn_next_image.setEnabled(False)
+
         except Exception as ex:
             print(f"Ошибка: {ex}")
 
